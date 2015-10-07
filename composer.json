@@ -1,0 +1,24 @@
+{
+    "name": "th3mouk/contact-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony Th3MoukContactBundle to factorise contact form generation throught websites.",
+    "keywords": [
+        "contact", "contact mailer", "symfony", "bundle"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jérémy Marodon",
+            "email": "marodon.jeremy@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Th3Mouk\\ContactBundle\\": "" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}

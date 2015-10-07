@@ -1,0 +1,3 @@
+th3mouk_contact:
+    path: /
+    defaults: { _controller: Th3MoukContactBundle:Contact:contact }
