@@ -12,6 +12,12 @@
             "email": "marodon.jeremy@gmail.com"
         }
     ],
+    "require": {
+        "symfony/symfony": "~2.3",
+        "th3mouk/mailer": "~1.0@dev"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Th3Mouk\\ContactBundle\\": "" }
