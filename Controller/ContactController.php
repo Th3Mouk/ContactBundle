@@ -48,6 +48,8 @@ class ContactController extends BaseContactController
 
             $this->addFlash('success', 'Votre demande de contact à bien été transmise.');
 
+            $this->get('th3mouk.contact.mailer')->sendMail($entity);
+
             $entity = $this->getEntity();
             $form = $this->createCreateForm($entity);
         }

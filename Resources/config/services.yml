@@ -1,1 +1,4 @@
 services:
+    th3mouk.contact.mailer:
+        class: Th3Mouk\ContactBundle\Mailer\ContactMailer
+        arguments: [@mailer, @templating]
