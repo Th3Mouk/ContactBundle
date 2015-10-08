@@ -8,6 +8,16 @@ use Th3Mouk\Mailer\BaseTwigMailer;
 class ContactMailer extends BaseTwigMailer
 {
     /**
+     * @var string
+     */
+    protected $template;
+
+    /**
+     * @var array()
+     */
+    protected $configuration;
+
+    /**
      * ContactMailer constructor.
      *
      * @param \Swift_Mailer   $mailer
@@ -31,13 +41,40 @@ class ContactMailer extends BaseTwigMailer
         return $this->sendEmail();
     }
 
+    /**
+     * @return mixed
+     */
     public function getTemplate()
     {
-        return $this->container->getParameter('th3mouk.contact.template.mailer');
+        return $this->template;
+    }
+
+    /**
+     * @param mixed $template
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConfiguration()
+    {
+        return $this->configuration;
     }
 
     public function getConfigurationData($data)
     {
-        return $this->container->getParameter('th3mouk.contact.datas.'.$data);
+        return $this->configuration[$data];
+    }
+
+    /**
+     * @param mixed $configuration
+     */
+    public function setConfiguration($configuration)
+    {
+        $this->configuration = $configuration;
     }
 }

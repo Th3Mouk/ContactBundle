@@ -22,9 +22,7 @@ class Th3MoukContactExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('th3mouk.contact.datas.from', $config['datas']['from']);
-        $container->setParameter('th3mouk.contact.datas.to', $config['datas']['to']);
-        $container->setParameter('th3mouk.contact.datas.subject', $config['datas']['subject']);
+        $container->setParameter('th3mouk.contact.datas', $config['datas']);
 
         $container->setParameter('th3mouk.contact.class.entity', $config['class']['entity']);
         $container->setParameter('th3mouk.contact.class.form', $config['class']['formType']);
