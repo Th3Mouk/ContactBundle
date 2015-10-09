@@ -5,6 +5,8 @@ This [Symfony](http://symfony.com/) bundle providing base for manage contact for
 
 The aim is to factorise website contact form.
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/8b9d7aff-9d73-4a54-8c57-edc2257a24ab/mini.png)](https://insight.sensiolabs.com/projects/8b9d7aff-9d73-4a54-8c57-edc2257a24ab) [![Latest Stable Version](https://poser.pugx.org/th3mouk/contact-bundle/v/stable)](https://packagist.org/packages/th3mouk/contact-bundle) [![Total Downloads](https://poser.pugx.org/th3mouk/contact-bundle/downloads)](https://packagist.org/packages/th3mouk/contact-bundle) [![Latest Unstable Version](https://poser.pugx.org/th3mouk/contact-bundle/v/unstable)](https://packagist.org/packages/th3mouk/contact-bundle) [![License](https://poser.pugx.org/th3mouk/contact-bundle/license)](https://packagist.org/packages/th3mouk/contact-bundle)
+
 
 ## Installation
 
