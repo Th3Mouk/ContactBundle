@@ -10,7 +10,7 @@ The aim is to factorise website contact form.
 
 ## Installation
 
-`php composer.phar require th3mouk/contact-bundle ^1.0@dev`
+`php composer.phar require th3mouk/contact-bundle ^1.0`
 
 Add to the `appKernel.php`:
 
@@ -30,6 +30,12 @@ Configure entities and templates in `config.yml`
 
 ```yml
 th3mouk_contact:
+    datas:
+        from: noreply@domain.com
+        to:
+            - test.mail@domain.com
+        subject: Contact request from your website
+            
     class:
         entity: AppBundle\Entity\Contact
         formType: AppBundle\Form\ContactType
@@ -39,7 +45,132 @@ th3mouk_contact:
         mailer: AppBundle:Contact:mail.html.twig
 ```
 
-Full configuration is in writing.
+## Usage
+
+Create `Contact` entity that implement the `Th3Mouk\ContactBundle\Entity\ContactInterface` with the `app/console d:g:entity`.
+
+Generate the relative FormType: `app/console d:g:f AppBundle:Contact`.
+
+Create two template for frontend and mail, you have access to `form` object to draw your form, and your `contact` object in the mail template.
+
+Check the following exemples:
+
+### Exemple of ContactType
+
+```php
+namespace AppBundle\Form;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class ContactType extends AbstractType
+{
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('name')
+            ->add('adress')
+            ->add('zipCode')
+            ->add('city')
+            ->add('phone')
+            ->add('email', 'email')
+            ->add('message')
+        ;
+    }
+
+    /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'AppBundle\Entity\Contact',
+        ));
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'app_contact_type';
+    }
+}
+```
+
+### Exemple of Form Template
+
+```twig
+<h1>Contact Request</h1>
+
+{{ form_start(form) }}
+
+{{ form_row(form.name) }}
+{{ form_row(form.adress) }}
+{{ form_row(form.zipCode) }}
+{{ form_row(form.city) }}
+{{ form_row(form.phone) }}
+{{ form_row(form.email) }}
+{{ form_row(form.message) }}
+
+<div class="form-group"><button type="submit" class="btn-default btn">Submit</button></div>
+
+{{ form_rest(form) }}
+{{ form_end(form) }}
+```
+
+### Exemple of Mail Template
+
+```twig
+{{ contact.name }}<br>
+{{ contact.adress }}<br>
+{{ contact.zipCode }}<br>
+{{ contact.city }}<br>
+{{ contact.phone }}<br>
+{{ contact.email }}<br>
+{{ contact.message }}
+```
+
+### Sonata Integration Exemple
+
+First use the `app/console sonata:admin:generate` command.
+
+Then add the service configuration:
+
+```yml
+app.admin.contact:
+    class: AppBundle\Admin\ContactAdmin
+    arguments: [~, AppBundle\Entity\Contact, SonataAdminBundle:CRUD]
+    tags:
+        - {name: sonata.admin, manager_type: orm, label: Contacts}
+```
+
+Add the admin group on the dashboard:
+
+```yml
+sonata.admin.group.contact:
+    label:           Contact
+    label_catalogue: SonataPageBundle
+    icon:            '<i class="fa fa-envelope"></i>'
+    items:
+        - app.admin.contact
+    roles: [ ROLE_ADMIN ]
+```
+
+Don't forget to add this group on a block:
+```yml
+sonata_admin:
+    dashboard:
+        blocks:
+            - { position: left, type: sonata.admin.block.admin_list, settings: { groups: [...sonata.admin.group.contact...] }}
+```
+
+You're done! :+1:
 
 ## Please
 
