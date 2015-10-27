@@ -9,7 +9,7 @@
 
 namespace Th3Mouk\ContactBundle\Mailer;
 
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Templating\EngineInterface;
 use Th3Mouk\ContactBundle\Events\MailerEvents;
 use Th3Mouk\ContactBundle\Events\MailerEventsDefinition;
@@ -23,7 +23,7 @@ class ContactMailer extends BaseTwigMailer
     protected $template;
 
     /**
-     * @var EventDispatcher
+     * @var EventDispatcherInterface
      */
     protected $event_dispatcher;
 
@@ -35,11 +35,11 @@ class ContactMailer extends BaseTwigMailer
     /**
      * ContactMailer constructor.
      *
-     * @param \Swift_Mailer   $mailer
-     * @param EngineInterface $templating
-     * @param EventDispatcher $eventDispatcher
+     * @param \Swift_Mailer            $mailer
+     * @param EngineInterface          $templating
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(\Swift_Mailer $mailer, EngineInterface $templating, EventDispatcher $eventDispatcher)
+    public function __construct(\Swift_Mailer $mailer, EngineInterface $templating, EventDispatcherInterface $eventDispatcher)
     {
         $this->event_dispatcher = $eventDispatcher;
         parent::__construct($mailer, $templating);
