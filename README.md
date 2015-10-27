@@ -10,7 +10,7 @@ The aim is to factorise website contact form.
 
 ## Installation
 
-`php composer.phar require th3mouk/contact-bundle ^1.0`
+`php composer.phar require th3mouk/contact-bundle ^1.1`
 
 Add to the `appKernel.php`:
 
