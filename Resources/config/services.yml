@@ -1,7 +1,7 @@
 services:
     th3mouk.contact.mailer:
         class: Th3Mouk\ContactBundle\Mailer\ContactMailer
-        arguments: [@mailer, @templating]
+        arguments: [@mailer, @templating, @event_dispatcher]
         calls:
             - [setTemplate, ["%th3mouk.contact.template.mailer%"]]
             - [setConfiguration, ["%th3mouk.contact.datas%"]]

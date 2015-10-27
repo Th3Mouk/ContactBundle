@@ -9,7 +9,10 @@
 
 namespace Th3Mouk\ContactBundle\Mailer;
 
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Templating\EngineInterface;
+use Th3Mouk\ContactBundle\Events\MailerEvents;
+use Th3Mouk\ContactBundle\Events\MailerEventsDefinition;
 use Th3Mouk\Mailer\BaseTwigMailer;
 
 class ContactMailer extends BaseTwigMailer
@@ -18,6 +21,11 @@ class ContactMailer extends BaseTwigMailer
      * @var string
      */
     protected $template;
+
+    /**
+     * @var EventDispatcher
+     */
+    protected $event_dispatcher;
 
     /**
      * @var array()
@@ -29,9 +37,11 @@ class ContactMailer extends BaseTwigMailer
      *
      * @param \Swift_Mailer   $mailer
      * @param EngineInterface $templating
+     * @param EventDispatcher $eventDispatcher
      */
-    public function __construct(\Swift_Mailer $mailer, EngineInterface $templating)
+    public function __construct(\Swift_Mailer $mailer, EngineInterface $templating, EventDispatcher $eventDispatcher)
     {
+        $this->event_dispatcher = $eventDispatcher;
         parent::__construct($mailer, $templating);
     }
 
@@ -39,13 +49,21 @@ class ContactMailer extends BaseTwigMailer
     {
         $this->init();
 
+        $event = new MailerEvents($entity);
+        $this->event_dispatcher->dispatch(MailerEventsDefinition::PRE_SUBMIT_MAIL, $event);
+
         $this->renderHTMLBody($this->getTemplate(), $entity);
 
         $this->setFrom($this->getConfigurationData('from'));
         $this->setTo($this->getConfigurationData('to'));
         $this->setSubject($this->getConfigurationData('subject'));
 
-        return $this->sendEmail();
+        $return = $this->sendEmail();
+
+        $event = new MailerEvents($entity);
+        $this->event_dispatcher->dispatch(MailerEventsDefinition::POST_SUBMIT_MAIL, $event);
+
+        return $return;
     }
 
     /**

@@ -172,6 +172,11 @@ sonata_admin:
 
 You're done! :+1:
 
+## Events
+
+You have access to two events before and after mail was send :
+* [MailerEventsDefinition](https://github.com/Th3Mouk/ContactBundle/tree/master/Events/MailerEventsDefinition)
+
 ## Please
 
 Feel free to improve this bundle.
