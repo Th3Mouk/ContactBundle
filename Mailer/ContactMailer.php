@@ -52,7 +52,9 @@ class ContactMailer extends BaseTwigMailer
         $event = new MailerEvents($entity);
         $this->event_dispatcher->dispatch(MailerEventsDefinition::PRE_SUBMIT_MAIL, $event);
 
-        $this->renderHTMLBody($this->getTemplate(), $entity);
+        $this->setHTMLBody($this->getTemplate(), array(
+            'contact' => $entity,
+        ));
 
         $this->setFrom($this->getConfigurationData('from'));
         $this->setTo($this->getConfigurationData('to'));
