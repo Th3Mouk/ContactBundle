@@ -37,14 +37,8 @@ class Th3MoukContactExtension extends Extension
         $container->setParameter('th3mouk.contact.template.application', $config['templates']['application']);
         $container->setParameter('th3mouk.contact.template.mailer', $config['templates']['mailer']);
 
-        if (isset($config['flash_messages'])) {
-            if ($config['flash_messages']['success']) {
-                $container->setParameter('th3mouk.contact.flash.success', $config['flash_messages']['success']);
-            }
-            if ($config['flash_messages']['error']) {
-                $container->setParameter('th3mouk.contact.flash.error', $config['flash_messages']['error']);
-            }
-        }
+        $container->setParameter('th3mouk.contact.flash.success', $config['flash_messages']['success']);
+        $container->setParameter('th3mouk.contact.flash.error', $config['flash_messages']['error']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

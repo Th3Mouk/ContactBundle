@@ -53,7 +53,9 @@ class ContactController extends BaseContactController
             $em->persist($entity);
             $em->flush();
 
-            $this->addFlash('success', 'Votre demande de contact à bien été transmise.');
+            if ($this->container->hasParameter('th3mouk.contact.flash.success')) {
+                $this->addFlash('success', $this->container->getParameter('th3mouk.contact.flash.success'));
+            }
 
             $this->get('th3mouk.contact.mailer')->sendMail($entity);
 

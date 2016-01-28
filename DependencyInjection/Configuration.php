@@ -84,10 +84,13 @@ class Configuration implements ConfigurationInterface
 
         ->children()
             ->arrayNode('flash_messages')
+                ->addDefaultsIfNotSet()
                 ->children()
                     ->scalarNode('success')
+                    ->defaultValue('contact.mail.success')
                     ->end()
                     ->scalarNode('error')
+                    ->defaultValue('contact.mail.error')
                     ->end()
                 ->end()
             ->end()
