@@ -10,7 +10,7 @@ The aim is to factorise website contact form.
 
 ## Installation
 
-`php composer.phar require th3mouk/contact-bundle ^1.1`
+`php composer.phar require th3mouk/contact-bundle ^1.2`
 
 Add to the `appKernel.php`:
 
@@ -43,6 +43,10 @@ th3mouk_contact:
     templates:
         application: AppBundle:Contact:contact.html.twig
         mailer: AppBundle:Contact:mail.html.twig
+        
+    flash_messages:
+        success: contact.mail.success
+        error: contact.mail.error
 ```
 
 ## Usage
